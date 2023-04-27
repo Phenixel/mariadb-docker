@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  db:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Pixelenium_dev_2
+      MYSQL_USER: phen
+      MYSQL_PASSWORD: phen
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "3355:3306"
+ 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8082:80"
+    depends_on:
+      - db
+
+volumes:
+  mariadb-data:
